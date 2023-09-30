@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Avatars from "./Avatars";
 
+
 const Register = ({setLoginOrRegister}) => {
     const [selectAvatar, setSelectAvatar] = useState()
     const usernameRef = useRef()
@@ -44,10 +45,7 @@ const Register = ({setLoginOrRegister}) => {
     }
 
     return (
-        <div className="d-flex f-col login">
-            <h1>REGISTER</h1>
-            
-            <div><h3>Your avatar</h3></div>
+        <div className="d-flex f-col login register">
             <div className="d-flex avatars">
                 {avatars && avatars.map((x,i)=> <div key={i}>
                         <Avatars x={x} i={i} setSelectAvatar={setSelectAvatar} selectAvatar={selectAvatar}/>
