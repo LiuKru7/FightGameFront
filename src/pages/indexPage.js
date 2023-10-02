@@ -40,11 +40,11 @@ const IndexPage = () => {
 
             {loginOrRegister===0 &&
             <div>
-                <Login></Login>
+                <Login  setWindow2={setWindow}></Login>
             </div>}
             {loginOrRegister===1 &&
                 <div>
-                    <Register setLoginOrRegister={setLoginOrRegister}></Register>
+                    <Register  setLoginOrRegister={setLoginOrRegister}></Register>
                 </div>}
         </div>
     );

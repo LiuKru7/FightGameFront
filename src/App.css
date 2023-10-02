@@ -98,11 +98,12 @@ button {
 
 
     .login input {
-          font-size: 1.5em;
-          padding: 10px;
-          margin: 10px;
+        font-size: 1.5em;
+        padding: 10px;
+        margin: 10px;
         background-color: rgba(190, 187, 187, 0.93);
         border-radius: 10px;
+        border: 3px solid black;
       }
 
     .login button{
@@ -112,9 +113,10 @@ button {
         border-radius: 10px;
         background-color: rgba(190, 187, 187, 0.93);
         font-weight: bold;
+        border: 3px solid black;
     }
     .avatars {
-        padding: 0 300px;
+        padding: 0 400px;
         justify-content: center;
         flex-wrap: wrap;
         margin: 15px;
@@ -219,7 +221,7 @@ button {
     }
     .playerOne {
         width: 300px;
-        height: 600px;
+        height: 100%;
         display: flex;
         flex-direction: column;
         background-color: rgba(7, 134, 98, 0.85);
@@ -228,10 +230,11 @@ button {
 
     }
     .playerOne img {
-        width: 80%;
+        height: 500px;
     }
     .gamePage {
         width: 100%;
+        height: 100%;
     }
     .fightField {
         display: flex;
@@ -239,15 +242,18 @@ button {
 
     }
     .progressBar {
-        margin: 25px 70px ;
-        width: 30px;
-        height: 500px;
+        width: 100%;
+        height: 30px;
         background-color: #ff0026;
+        border: 3px solid black;
+        border-radius: 15px;
+        overflow: hidden;
+        box-sizing: border-box;
     }
     .progressBar > div {
-        height: 50%;
-        width: 100%;
+        height: 100%;
         background-color: green;
+
 
     }
     .fightFieldCenter {
@@ -255,6 +261,10 @@ button {
         background-color: rgba(7, 134, 98, 0.85);
         border: 5px solid green;
         border-radius: 30px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
     .startGameField button{
         font-weight: bold;
@@ -332,3 +342,75 @@ button {
     top: 0;
     border-radius: 25px;
 }
+
+
+.itemsInFight {
+    display: flex;
+    justify-content: center;
+}
+.itemsInFight img {
+    margin-top: 15px;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+.itemsInFight img:hover{
+    background-color: #cdd90c;
+    border: 3px solid black;
+    border-radius: 50%
+}
+.modal {
+    position: absolute;
+    top: 150px;
+    left: 630px
+}
+
+.requestModal {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(22, 22, 26, 0.98);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 50px;
+    border: 5px solid red;
+    text-align: center;
+    font-size: 3em;
+}
+.requestModal button {
+    background-color: #361818;
+    color: white;
+    font-weight: bold;
+    margin: 30px;
+    font-size: 30px;
+    padding: 5px 30px;
+    border-radius: 20px;
+    border: 3px solid white;
+}
+.requestModal button:hover {
+    color: green;
+    border: 3px solid green
+}
+
+.btnHit {
+    font-size: 50px;
+    border: 5px solid red;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    padding: 5px 30px;
+    border-radius: 15px;
+}
+.fightFieldCenter p {
+    color: #eeff00;
+    font-size: 35px;
+}
+.backToLobbyBtn {
+    background-color: #b8e0b8;
+    font-size: 20px;
+    padding: 10px 30px;
+    border-radius: 20px;
+    border: 3px solid black;
+}
+

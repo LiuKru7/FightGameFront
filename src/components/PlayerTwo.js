@@ -1,26 +1,37 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {setFight} from "../features/info";
+import {socket} from "../App";
 
 const PlayerTwo = () => {
-
+    const dispatch = useDispatch ()
     const userInfo = useSelector(state=>state.info.fight.player2)
+    let user = useSelector(state=>state.info.fight)
 
+
+    function potionUse () {
+
+        socket.emit ("potion", user.roomId, 2)
+    }
     return (
         <div className="playerOne">
             {userInfo && <div>
                 <h1>{userInfo.username}</h1>
                 <p></p>
                 <img src={userInfo.avatar} alt=""/>
+                <div className="progressBar">
+                    { userInfo.hp && userInfo.hp >= 0 &&
+                        <div style={{ width: `${userInfo.hp}%` }}></div>
+                    }
+                </div>
                 <div className="itemsInFight d-flex">
-                    <div>
-                        <img src={userInfo.weapon[0].weaponUrl} alt=""/>
-                    </div>
-                    <div>
-                        <img src={userInfo.armour[0].armourUrl} alt=""/>
-                    </div>
-                    <div>
-                        <img src={userInfo.potion[0].potionUrl} alt=""/>
-                    </div>
+                    {!userInfo.potionUse && userInfo?.potion?.[0]?.potionUrl ?
+                        <div onClick={potionUse}>
+                            <img src={userInfo?.potion?.[0]?.potionUrl ?? "https://cdn-icons-png.flaticon.com/512/6804/6804175.png"} alt=""/>
+                        </div>: <img src="https://cdn-icons-png.flaticon.com/512/6804/6804175.png" alt=""/>}
+                </div>
+                <div className="d-flex flex-1">
+
                 </div>
             </div>}
         </div>

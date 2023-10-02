@@ -1,23 +1,24 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Route, Routes, useNavigate} from "react-router-dom";
 import IndexPage from "./pages/indexPage";
 import GamePage from "./pages/gamePage";
 import LobbyPage from "./pages/lobbyPage";
 import "./App.css"
 import { io } from "socket.io-client";
-import {setFight, setUser, setUsername, setMyInfo} from "./features/info";
-import {useDispatch} from "react-redux";
+import {setFight, setUsername, setMyInfo, setWins, setTurns,setTurnTime} from "./features/info";
+import {useDispatch, useSelector} from "react-redux";
+import Modal from "./components/Modal";
+
 
 export const socket = io("http://localhost:3001", {
     autoConnect: true
 });
-
 const App = () => {
     const dispatch = useDispatch ()
     const nav = useNavigate()
-
-
-
+    const timeLeft = useSelector (state=> state.info.turnTime)
+    const [request, setRequest] = useState()
+    const [requestAnswer, setRequestAnswer] = useState()
 
     useEffect(()=> {
         if (localStorage.getItem("token")&& localStorage.getItem("token")!=="" )
@@ -65,16 +66,17 @@ const App = () => {
 
     useEffect(()=> {
         socket.on('fight_request', (data) => {
-            console.log("fight_request")
-            const accept = window.confirm(`Fight request from ${data.from.username}. Accept?`);
+            console.log(data.from)
+            setRequest(data.from)
+            // const accept = window.confirm(`Fight request from ${data.from.username}. Accept?`);
 
-            if (accept) {
-                console.log("accept")
-                socket.emit('accept_fight', data.from.socketId);  // Use socketId here
-                nav("/game");
-            } else {
-                socket.emit('decline_fight', data.from.id);
-            }
+            // if (requestAnswer) {
+            //     console.log("accept")
+            //     socket.emit('accept_fight', data.from.socketId);
+            //     nav("/game");
+            // } else {
+            //     socket.emit('decline_fight', data.from.id);
+            // }
         });
     },[])
     useEffect(() => {
@@ -112,6 +114,35 @@ const App = () => {
             dispatch(setFight(data))
         });
     }, []);
+    useEffect(() => {
+        socket.on('wins',(data) => {
+            dispatch(setWins(data))
+        })
+    },[])
+    useEffect(() => {
+        socket.on('playerTurn', (data) => {
+            dispatch(setTurns(data))
+        })
+    },[])
+    useEffect(()=> {
+        socket.on('turnTime', (data) => {
+            console.log(data)
+            dispatch(setTurnTime(data))
+        })
+    },[])
+
+
+
+    function timer() {
+        if (timeLeft > 0) {
+            dispatch(setTurnTime(timeLeft - 1));
+        }
+    }
+
+    useEffect(() => {
+        const intervalId = setInterval(timer, 1000);
+        return () => clearInterval(intervalId); // This clears the interval when the component is unmounted
+    }, []);
 
     return (
         <div className="body">
@@ -120,6 +151,7 @@ const App = () => {
                 <Route path="/game" element={<GamePage/>}/>
                 <Route path="/lobby" element={<LobbyPage/>}/>
             </Routes>
+            <div className="modal"><Modal request={request} setRequest={setRequest} answer={setRequestAnswer}></Modal></div>
         </div>
     );
 };

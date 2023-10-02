@@ -6,7 +6,10 @@ export const infoSlice = createSlice( {
         user: [],
         username: "",
         fight: [],
-        myInfo: ""
+        myInfo: "",
+        wins:[],
+        turns:"",
+        turnTime : 0
     },
     reducers: {
         setUser: (state, action) => {
@@ -20,9 +23,26 @@ export const infoSlice = createSlice( {
         },
         setMyInfo: (state, action) => {
             state.myInfo = action.payload
+        },
+        setWins: (state, action) => {
+            state.wins = action.payload
+        },
+        setTurns: (state, action) => {
+            state.turns = action.payload
+        },
+        setTurnTime: (state, action) => {
+            state.turnTime = action.payload
         }
+
     }
 })
-export const {setUser,setUsername,setFight, setMyInfo} = infoSlice.actions
+export const {setUser,
+    setUsername,
+    setFight,
+    setMyInfo,
+    setWins,
+    setTurns,
+    setTurnTime
+} = infoSlice.actions
 
 export default infoSlice.reducer

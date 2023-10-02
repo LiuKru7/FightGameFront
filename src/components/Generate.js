@@ -23,8 +23,11 @@ const Generate = () => {
         fetch('http://localhost:8000/generateGame',options)
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.data)
-                setGenerateInfo(data.data)
+
+                if (data.error) return console.log ("not money")
+                setGenerateInfo(data.data[0])
+                dispatch(setUser(data.data[1]))
+
             });
     }
      function takeWeapon () {
@@ -45,7 +48,6 @@ const Generate = () => {
                  withOut.weapon = ""
                  setGenerateInfo(withOut)
              });
-
      }
      function takeArmour () {
          const options = {
@@ -82,9 +84,7 @@ const Generate = () => {
                  const withOut = generateInfo
                  withOut.potion = ""
                  setGenerateInfo(withOut)
-
              });
-
      }
     return (
         <div>
@@ -156,7 +156,7 @@ const Generate = () => {
                     {generateInfo.potion ?
                         <div
                             className="p-relative"
-                            style={{backgroundColor: "blue"}}
+                            style={{backgroundColor: "#7a88a8"}}
                             onMouseEnter={() => setShow2(true)}
                             onMouseLeave={() => setShow2(false)}
                         >
@@ -177,7 +177,7 @@ const Generate = () => {
                     }
                 </div>
             </div>
-            <button onClick={generateFunk} >Generate</button>
+            <button onClick={generateFunk} >Generate 50$</button>
         </div>
     );
 };
