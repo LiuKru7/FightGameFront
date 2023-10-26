@@ -5,7 +5,6 @@ import {useNavigate} from "react-router-dom";
 
 const Modal = ({request, answer, setRequest}) => {
     const nav = useNavigate()
-
     function yesFunk () {
         console.log("accept")
         socket.emit('accept_fight', request.socketId);

@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Avatars from "./Avatars";
-import {useFetcher, useNavigate} from "react-router-dom";
 
 
 const Register = ({setLoginOrRegister,setWindow}) => {
@@ -10,7 +9,7 @@ const Register = ({setLoginOrRegister,setWindow}) => {
     const password2Ref = useRef()
     const [avatars, setAvatars] = useState()
     const [error, setError] = useState("")
-    const nav = useNavigate()
+
 
     useEffect(()=> {
         fetch('http://localhost:8000/avatars')
@@ -20,7 +19,6 @@ const Register = ({setLoginOrRegister,setWindow}) => {
                 setAvatars(data.data)
             });
         console.log("1")
-
     },[])
 
     function register () {

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import PlayerOnline from "./PlayerOnline";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 
 const PlayerList = () => {
+
     const [userInfo, setUserInfo] = useState([]);
-    const dispatch = useDispatch();
     const users = useSelector(state => state.info.username);
     const thisUserInfo = useSelector(state => state.info.myInfo);
 

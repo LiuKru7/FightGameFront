@@ -2,17 +2,15 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 
 
-const Login = ({setWindow2})=> {
-
+const Login = ({setWindow2}) => {
     const nav = useNavigate()
     const [window, setWindow] = useState(1)
     const usernameRef = useRef()
     const passwordRef = useRef()
-    const [error,setError] = useState()
+    const [error, setError] = useState()
 
-    useEffect(()=> {
-        if (localStorage.getItem("token")&& localStorage.getItem("token")!=="" )
-        {
+    useEffect(() => {
+        if (localStorage.getItem("token") && localStorage.getItem("token") !== "") {
             const options = {
                 method: 'POST',
                 headers: {
@@ -20,26 +18,24 @@ const Login = ({setWindow2})=> {
                     "authorization": localStorage.getItem("token")
                 },
             };
-            fetch('http://localhost:8000/autoLogin',options)
+            fetch('http://localhost:8000/autoLogin', options)
                 .then((res) => res.json())
                 .then((data) => {
                 });
             setWindow(2)
             setWindow2(0)
         } else {
-            return  setWindow(1)
+            return setWindow(1)
         }
-    },[window])
-
-
-    function login () {
+    }, [window])
+    function login() {
 
         const user = {
             username: usernameRef.current.value,
             password: passwordRef.current.value,
         }
-        if (user.password.length<3) return setError("password to short")
-        if (user.username.length<3) return setError("username to short")
+        if (user.password.length < 3) return setError("password to short")
+        if (user.username.length < 3) return setError("username to short")
 
         const options = {
             method: 'POST',
@@ -51,9 +47,8 @@ const Login = ({setWindow2})=> {
         fetch('http://localhost:8000/login', options)
             .then((res) => res.json())
             .then((data) => {
-                console.log(data)
                 if (data.error) setError(data.message)
-                if(!data.error)  {
+                if (!data.error) {
                     localStorage.setItem("token", (data.data));
                     setWindow(2)
                     setWindow2(0)
@@ -61,14 +56,14 @@ const Login = ({setWindow2})=> {
             });
 
     }
-    function startGame () {
+    function startGame() {
         setWindow(1)
         nav('/lobby')
     }
 
     return (
-        <div >
-            {window===1 && <div className="d-flex f-col login">
+        <div>
+            {window === 1 && <div className="d-flex f-col login">
                 <h1>Login</h1>
                 <div>
                     <input type="text" placeholder="username" ref={usernameRef}/>
@@ -77,20 +72,15 @@ const Login = ({setWindow2})=> {
                     <input type="text" placeholder="password" ref={passwordRef}/>
                 </div>
                 <div>
-                    {error && <div style={{color:"red"}}>{error}</div>}
-                    <button  onClick={login}>LOGIN</button>
+                    {error && <div style={{color: "red"}}>{error}</div>}
+                    <button onClick={login}>LOGIN</button>
                 </div>
-            </div> }
-
-
-
-            {window===2 &&
-
+            </div>}
+            {window === 2 &&
                 <div className="startGameField">
                     <h1 style={{color: "white"}}>YOU ARE LOGGED </h1>
                     <button onClick={startGame}>Start Game</button>
-                </div> }
-
+                </div>}
         </div>
     );
 };

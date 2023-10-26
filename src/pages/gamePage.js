@@ -1,12 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Player0Ne from "../components/Player0ne";
 import PlayerTwo from "../components/PlayerTwo";
 import PlayerFight from "../components/PlayerFight";
-import {socket} from "../App";
-import { useLocation } from 'react-router-dom';
 
 const GamePage = () => {
-
 
     return (
         <div className="d-flex container f-col">

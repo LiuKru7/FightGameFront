@@ -2,18 +2,15 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "../features/info";
 
-
-
 const SingleItem = ({x, index}) => {
     const [show, setShow] = useState(false);
-    const userInfo = useSelector(state=>state.info.user)
-    const dispatch = useDispatch ()
-    function takeToFight () {
+    const dispatch = useDispatch()
+
+    function takeToFight() {
         const user = {
             index: index,
             name: x.name
         }
-
         const options = {
             method: 'POST',
             headers: {
@@ -22,14 +19,14 @@ const SingleItem = ({x, index}) => {
             },
             body: JSON.stringify(user),
         };
-
-        fetch('http://localhost:8000/updateFightItem',options)
+        fetch('http://localhost:8000/updateFightItem', options)
             .then((res) => res.json())
             .then((data) => {
                 dispatch(setUser(data.data))
             });
     }
-    function removeItem () {
+
+    function removeItem() {
         const user = {
             index: index,
             name: x.name
@@ -43,7 +40,7 @@ const SingleItem = ({x, index}) => {
             body: JSON.stringify(user),
         };
 
-        fetch('http://localhost:8000/removeItem',options)
+        fetch('http://localhost:8000/removeItem', options)
             .then((res) => res.json())
             .then((data) => {
                 dispatch(setUser(data.data))
@@ -52,20 +49,18 @@ const SingleItem = ({x, index}) => {
 
     return (
 
-        <div className="p-relative" >
-            {x && x.name &&  (
+        <div className="p-relative">
+            {x && x.name && (
                 <div
-                    className="myItems" style={{backgroundColor:x.color}}
+                    className="myItems" style={{backgroundColor: x.color}}
                     onMouseEnter={() => setShow(true)}
                     onMouseLeave={() => setShow(false)}
                 >
                     {x.name === 'weapon' && (
                         <div>
-                            <img src={x.weaponUrl} alt="" />
+                            <img src={x.weaponUrl} alt=""/>
                             <button onClick={takeToFight}>Take To Fight</button>
                             <button onClick={removeItem}>Remove Item</button>
-
-
                             {
                                 show && <div className="fieldInfo2 d-flex f-col">
                                     <b>WEAPON</b>
@@ -77,15 +72,13 @@ const SingleItem = ({x, index}) => {
                                     <span>Steal Hp Chance: {x.stealChance}</span>
                                 </div>
                             }
-
                         </div>
                     )}
                     {x.name === 'armour' && (
-                        <div >
-                            <img src={x.armourUrl} alt="" />
+                        <div>
+                            <img src={x.armourUrl} alt=""/>
                             <button onClick={takeToFight}>Take To Fight</button>
                             <button onClick={removeItem}>Remove Item</button>
-
                             {
                                 show && <div className="fieldInfo2 d-flex f-col">
                                     <b>ARMOUR</b>
@@ -96,12 +89,11 @@ const SingleItem = ({x, index}) => {
                                     <span>Steal Hp Chance: {x.stealChance}</span>
                                 </div>
                             }
-
                         </div>
                     )}
-                    {x.name === 'potion'  && (
+                    {x.name === 'potion' && (
                         <div>
-                            <img src={x.potionUrl} alt="" />
+                            <img src={x.potionUrl} alt=""/>
                             <button onClick={takeToFight}>Take To Fight</button>
                             <button onClick={removeItem}>Remove Item</button>
                             {
@@ -112,9 +104,6 @@ const SingleItem = ({x, index}) => {
                             }
                         </div>
                     )}
-
-
-
                 </div>
             )}
         </div>

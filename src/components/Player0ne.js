@@ -1,14 +1,10 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {setFight} from "../features/info";
 import {socket} from "../App";
 
-
 const Player0Ne = () => {
-    const dispatch = useDispatch ()
     const user = useSelector(state=>state.info.fight)
     const userInfo = useSelector(state=>state.info.fight.player1)
-
     function potionUse () {
         socket.emit ("potion", user.roomId, 1)
     }
@@ -31,12 +27,8 @@ const Player0Ne = () => {
                     </div>: <img src="https://cdn-icons-png.flaticon.com/512/6804/6804175.png" alt=""/>}
                 </div>
                 <div className="d-flex flex-1">
-
                 </div>
-
             </div>}
-
-
         </div>
     );
 };
